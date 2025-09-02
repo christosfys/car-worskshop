@@ -1,0 +1,53 @@
+package com.example.Car.workshop.Entities;
+
+import java.util.List;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
+public class User {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+	private int id;
+	private String name;
+	@Column (name="phone")
+	private int number;
+		
+	
+	public User() {
+		super();
+	}
+	public User(String name, int number) {
+		super();
+		this.name = name;
+		this.number = number;
+	
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public int getNumber() {
+		return number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
+	}
+	
+
+	
+
+}
