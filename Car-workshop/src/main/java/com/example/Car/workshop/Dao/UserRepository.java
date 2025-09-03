@@ -7,4 +7,7 @@ import com.example.Car.workshop.Entities.User;
 
 public interface UserRepository extends JpaRepository<User, Integer> {
     // Optional: custom queries
+	
+	
+	
 }
