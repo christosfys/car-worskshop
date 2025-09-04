@@ -3,8 +3,10 @@ package com.example.Car.workshop.controller;
 import com.example.Car.workshop.Entities.Appoitment;
 import com.example.Car.workshop.Service.AppoitmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +39,14 @@ public class AppoitmentController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable int id) {
         appoitmentService.delete(id);
+    }
+    
+    @GetMapping("/date/{date}and{date1}")
+    public List<Appoitment> getAppoitmentsByDate(
+            @PathVariable String date,
+            @PathVariable String date1) {
+    	 Date start = Date.valueOf(date); // java.sql.Date.valueOf(String)
+    	    Date end = Date.valueOf(date1);
+        return appoitmentService.getBydate(start, end);
     }
 }

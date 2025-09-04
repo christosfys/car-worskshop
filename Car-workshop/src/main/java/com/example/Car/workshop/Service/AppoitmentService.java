@@ -1,5 +1,6 @@
 package com.example.Car.workshop.Service;
 
+import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,5 +38,9 @@ public class AppoitmentService {
     // DELETE
     public void delete(int id) {
         repository.deleteById(id);
+    }
+
+    public List<Appoitment> getBydate(Date date, Date date1) {
+        return repository.findBydateBetween(date, date1);
     }
 }
