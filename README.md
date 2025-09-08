@@ -1,6 +1,13 @@
  # 🚗 Car Workshop Management API (Spring Boot)
 
 ## 📌 Overview
+Based on the new regulation regarding a **digital customer and vehicle registry for car workshops**, I decided to create a small project that simulates such a system.  
+
+The idea is to have a central database where:
+- Customers are registered,  
+- Their vehicles are linked,  
+- And service appointments are tracked.  
+
 This project is a **Spring Boot REST API** for managing a car workshop.  
 It allows you to register **customers**, their **vehicles**, and create **appointments** for maintenance or repair.  
 
