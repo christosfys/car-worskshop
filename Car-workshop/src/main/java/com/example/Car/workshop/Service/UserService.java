@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.Car.workshop.Dao.UserRepository;
 import com.example.Car.workshop.Entities.User;
+import com.example.Car.workshop.ExceptionHandlers.UserException;
 
 @Service
 public class UserService {
@@ -17,14 +18,12 @@ public class UserService {
 
     // Create a new user
     public User createUser(User user) {
-    	if(user.getVehicles().isEmpty()) {
-    		System.out.println("Einai adeio");
-    	}else {
-    		System.out.println("Exei poly kommati");
-    		 user.getVehicles().forEach(vehicle -> vehicle.setUser(user));
-    		
-    	}
-              return userrepo.save(user);
+    	userrepo.findByName(user.getName())
+         .ifPresent(u -> {
+             throw new UserException(user.getName());
+         });
+
+    		return userrepo.save(user);
     }
 
     // Get all users
