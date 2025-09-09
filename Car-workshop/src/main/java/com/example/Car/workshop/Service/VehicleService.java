@@ -47,4 +47,9 @@ public class VehicleService {
         }
         return false;
     }
+
+	public void addforuser(int id) {
+		// TODO Auto-generated method stub
+		
+	}
 }

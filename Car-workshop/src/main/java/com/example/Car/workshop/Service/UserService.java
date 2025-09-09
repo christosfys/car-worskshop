@@ -17,7 +17,14 @@ public class UserService {
 
     // Create a new user
     public User createUser(User user) {
-        return userrepo.save(user);
+    	if(user.getVehicles().isEmpty()) {
+    		System.out.println("Einai adeio");
+    	}else {
+    		System.out.println("Exei poly kommati");
+    		 user.getVehicles().forEach(vehicle -> vehicle.setUser(user));
+    		
+    	}
+              return userrepo.save(user);
     }
 
     // Get all users

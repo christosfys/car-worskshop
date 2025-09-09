@@ -1,58 +1,52 @@
 package com.example.Car.workshop.Entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "Vehicle")
 public class Vehicle {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
-	
-	private int year;
-	@Column(name="plate_number")
-	private String platenumber;
-	private String model;
-	
-	
-	public Vehicle() {
-		super();
-	}
-	public Vehicle(int year, String plate_number, String model) {
-		super();
-		this.year = year;
-		this.platenumber = plate_number;
-		this.model = model;
-	}
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public int getYear() {
-		return year;
-	}
-	public void setYear(int year) {
-		this.year = year;
-	}
-	public String getPlate_number() {
-		return platenumber;
-	}
-	public void setPlate_number(String plate_number) {
-		this.platenumber = plate_number;
-	}
-	public String getModel() {
-		return model;
-	}
-	public void setModel(String model) {
-		this.model = model;
-	}
-	
-	
-	
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+
+    private int year;
+
+    @Column(name = "plate_number", nullable = false)
+    @JsonProperty("plate_number") // allows JSON to use "plate_number"
+    private String plateNumber;
+
+    private String model;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonBackReference
+    private User user;
+
+    // Constructors
+    public Vehicle() {}
+
+    public Vehicle(int year, String plateNumber, String model) {
+        this.year = year;
+        this.plateNumber = plateNumber;
+        this.model = model;
+    }
+
+    // Getters & Setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
+
+    public int getYear() { return year; }
+    public void setYear(int year) { this.year = year; }
+
+    public String getPlateNumber() { return plateNumber; }
+    public void setPlateNumber(String plateNumber) { this.plateNumber = plateNumber; }
+
+    public String getModel() { return model; }
+    public void setModel(String model) { this.model = model; }
+
+    public User getUser() { return user; }
+    public void setUser(User user) { this.user = user; }
 }

@@ -1,3 +1,5 @@
+
+drop database car_directory;
 CREATE DATABASE IF NOT EXISTS car_directory;
 USE car_directory;
 
@@ -32,3 +34,4 @@ MODIFY description varchar(100) not null;
 INSERT INTO Appoitment (date, description, cost)
 VALUES ('2025-06-12', 'oil-changes', 10);
 select * from Appoitment;
+
