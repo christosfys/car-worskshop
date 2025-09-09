@@ -49,9 +49,9 @@ public class VehicleController {
     }
     
     
-    @PostMapping("/api/{id}/vehicles")
+    @PostMapping("/api/customers/{id}/vehicles")
     public void insertvehicleforuser(@PathVariable int id,@RequestBody Vehicle vehicle) {
-    	//vehicleService.addforuser(id);
+    	
     	
     	Optional<User> optionalUser = userService.getUserById(id);
     	System.out.println(optionalUser.toString());
@@ -59,12 +59,12 @@ public class VehicleController {
     	    vehicle.setUser(optionalUser.get());
     	    vehicleService.createVehicle(vehicle);
     	} else {
-    	    // Handle the case where the user doesn't exist
+    	 
     	    System.out.println("User not found with id: " + id);
-    	    // or throw an exception, or set user to null, depending on your logic
+    	
     	}    	
     }
-    @GetMapping("/api/{id}/vehicles")
+    @GetMapping("/api/customers/{id}/vehicles")
     public List<Vehicle> getVehiclesByUser(@PathVariable int id) {
 		List<Vehicle> list_vehicles=vehicleService.findVehicles(id);
 		return list_vehicles;
