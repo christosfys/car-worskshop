@@ -49,7 +49,7 @@ public class VehicleController {
     }
     
     
-    @PostMapping("/api/{id}/vehicle")
+    @PostMapping("/api/{id}/vehicles")
     public void insertvehicleforuser(@PathVariable int id,@RequestBody Vehicle vehicle) {
     	//vehicleService.addforuser(id);
     	
@@ -63,5 +63,11 @@ public class VehicleController {
     	    System.out.println("User not found with id: " + id);
     	    // or throw an exception, or set user to null, depending on your logic
     	}    	
+    }
+    @GetMapping("/api/{id}/vehicles")
+    public List<Vehicle> getVehiclesByUser(@PathVariable int id) {
+		List<Vehicle> list_vehicles=vehicleService.findVehicles(id);
+		return list_vehicles;
+    	
     }
 }

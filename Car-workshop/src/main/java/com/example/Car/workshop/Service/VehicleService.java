@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.example.Car.workshop.Dao.UserRepository;
@@ -48,8 +49,9 @@ public class VehicleService {
         return false;
     }
 
-	public void addforuser(int id) {
-		// TODO Auto-generated method stub
-		
+    public  List<Vehicle> findVehicles(int user_id){
+    	return vehiclerepo.findByUserId(user_id);
+    }
+
+    
 	}
-}
