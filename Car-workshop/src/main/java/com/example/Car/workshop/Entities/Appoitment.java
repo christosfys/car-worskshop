@@ -2,10 +2,15 @@ package com.example.Car.workshop.Entities;
 
 import java.sql.Date;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 
 @Entity
 public class Appoitment {
@@ -15,6 +20,12 @@ public class Appoitment {
 	private Date date;
 	private String description;
 	private int cost;
+	
+	
+	@ManyToOne
+    @JoinColumn(name = "vehicle_id")
+    @JsonBackReference
+	private Vehicle vehicle;
 	
 	public Appoitment() {
 		super();
@@ -48,6 +59,12 @@ public class Appoitment {
 	}
 	public void setCost(int cost) {
 		this.cost = cost;
+	}
+	public Vehicle getVehicle() {
+		return vehicle;
+	}
+	public void setVehicle(Vehicle vehicle) {
+		this.vehicle = vehicle;
 	}
 	
 	

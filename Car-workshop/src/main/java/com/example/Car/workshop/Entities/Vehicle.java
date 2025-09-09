@@ -1,6 +1,10 @@
 package com.example.Car.workshop.Entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
@@ -25,6 +29,9 @@ public class Vehicle {
     @JsonBackReference
     private User user;
     
+    @OneToMany(mappedBy = "vehicle",cascade = CascadeType.ALL)
+	@JsonManagedReference
+    private List<Appoitment> appoitments=new ArrayList<>();
     
     
 
@@ -52,4 +59,12 @@ public class Vehicle {
 
     public User getUser() { return user; }
     public void setUser(User user) { this.user = user; }
+
+	public List<Appoitment> getAppoitments() {
+		return appoitments;
+	}
+
+	public void setAppoitments(List<Appoitment> appoitments) {
+		this.appoitments = appoitments;
+	}
 }

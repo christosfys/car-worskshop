@@ -11,4 +11,6 @@ public interface AppoitmentRepository extends JpaRepository<Appoitment,Integer> 
 	
 	
 	public List<Appoitment> findBydateBetween(Date date, Date date1);
+	//public List<Appoitment> findByVehicleId(int id );
+	public List<Appoitment> findByVehicleId(int id);
 }

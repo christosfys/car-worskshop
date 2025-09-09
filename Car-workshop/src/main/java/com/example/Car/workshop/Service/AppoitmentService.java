@@ -43,4 +43,8 @@ public class AppoitmentService {
     public List<Appoitment> getBydate(Date date, Date date1) {
         return repository.findBydateBetween(date, date1);
     }
+    
+    public List<Appoitment> getByVehicleId(int id ){
+    	return repository.findByVehicleId(id);
+    }
 }
