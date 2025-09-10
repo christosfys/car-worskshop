@@ -1,17 +1,25 @@
 package com.example.Car.workshop.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.Car.workshop.Entities.User;
 import com.example.Car.workshop.Entities.Vehicle;
-import com.example.Car.workshop.Entities.VehicleRequestDTO;
 import com.example.Car.workshop.Service.UserService;
 import com.example.Car.workshop.Service.VehicleService;
+
+import jakarta.validation.Valid;
 
 @RestController
 public class VehicleController {
@@ -51,22 +59,37 @@ public class VehicleController {
         vehicleService.deleteVehicle(id);
     }
     
-    
     @PostMapping("/api/customers/{id}/vehicles")
-    public void insertvehicleforuser(@PathVariable int id,@RequestBody Vehicle vehicle) {
-    	
-    	
-    	Optional<User> optionalUser = userService.getUserById(id);
-    	System.out.println(optionalUser.toString());
-    	if (optionalUser.isPresent()) {
-    	    vehicle.setUser(optionalUser.get());
-    	    vehicleService.createVehicle(vehicle);
-    	} else {
-    	 
-    	    System.out.println("User not found with id: " + id);
-    	
-    	}    	
+    public ResponseEntity<?> addVehicleByUser(
+            @PathVariable int id,
+            @RequestBody @Valid Vehicle vehicle,
+            BindingResult bindingResult) {
+
+        // 1️⃣ Handle validation errors
+        if (bindingResult.hasErrors()) {
+            List<String> errors = bindingResult.getAllErrors()
+                                               .stream()
+                                               .map(ObjectError::getDefaultMessage)
+                                               .toList();
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        // 2️⃣ Check if user exists
+        Optional<User> optionalUser = userService.getUserById(id);
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                                 .body("User not found with id: " + id);
+        }
+
+        // 3️⃣ Assign user and save vehicle
+        vehicle.setUser(optionalUser.get());
+        vehicleService.createVehicle(vehicle);
+
+        // 4️⃣ Return the created vehicle
+        return ResponseEntity.status(HttpStatus.CREATED)
+                             .body(vehicle);
     }
+    
     @GetMapping("/api/customers/{id}/vehicles")
     public List<Vehicle> getVehiclesByUser(@PathVariable int id) {
 		List<Vehicle> list_vehicles=vehicleService.findVehicles(id);
@@ -75,7 +98,7 @@ public class VehicleController {
     }
     
     
-    
+   
     
   
     

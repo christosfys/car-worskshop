@@ -21,7 +21,7 @@ public class User {
 	private int id;
 	private String name;
 	@Column (name="phone")
-	private int number;
+	private String number;
 	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
 	@JsonManagedReference
 	 private List<Vehicle> vehicles = new ArrayList<>();		
@@ -29,7 +29,7 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(String name, int number) {
+	public User(String name, String number) {
 		super();
 		this.name = name;
 		this.number = number;
@@ -47,10 +47,10 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	public List<Vehicle> getVehicles() {

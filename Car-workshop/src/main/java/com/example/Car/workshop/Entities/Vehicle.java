@@ -7,19 +7,31 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "Vehicle")
 public class Vehicle {
-
+	@Valid
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    private int year;
-
+	
+	@Max(value = 2025, message = "Year cannot be in the future") 
+	private int year;
+	
     @Column(name = "plate_number", nullable = false)
     @JsonProperty("plate_number") // allows JSON to use "plate_number"
+
+    @Pattern(regexp = "^[A-Z]{3}-[0-9]{4}$",
+    message = "The template must have the specific number for example AAA-1111")
+
+    @NotNull(message="The licencse plate is required")
     private String plateNumber;
 
     private String model;
