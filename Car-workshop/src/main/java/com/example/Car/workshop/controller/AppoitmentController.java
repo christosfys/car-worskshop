@@ -24,6 +24,10 @@ public class AppoitmentController {
     // CREATE
     @PostMapping
     public Appoitment create(@RequestBody Appoitment appoitment) {
+    	
+    	
+    	
+    	
         return appoitmentService.create(appoitment);
     }
 
@@ -73,7 +77,7 @@ public class AppoitmentController {
     public List<Appoitment> getAppoitmentsByDate(
             @PathVariable String date,
             @PathVariable String date1) {
-    	 Date start = Date.valueOf(date); // java.sql.Date.valueOf(String)
+    	 Date start = Date.valueOf(date); 
     	    Date end = Date.valueOf(date1);
         return appoitmentService.getBydate(start, end);
     }

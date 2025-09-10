@@ -81,20 +81,22 @@ public class VehicleController {
                                  .body("User not found with id: " + id);
         }
 
-        // 3️⃣ Assign user and save vehicle
         vehicle.setUser(optionalUser.get());
         vehicleService.createVehicle(vehicle);
 
-        // 4️⃣ Return the created vehicle
         return ResponseEntity.status(HttpStatus.CREATED)
                              .body(vehicle);
     }
-    
     @GetMapping("/api/customers/{id}/vehicles")
-    public List<Vehicle> getVehiclesByUser(@PathVariable int id) {
-		List<Vehicle> list_vehicles=vehicleService.findVehicles(id);
-		return list_vehicles;
-    	
+    public ResponseEntity<?> getVehiclesByUser(@PathVariable int id) {
+        List<Vehicle> list_vehicles = vehicleService.findVehicles(id);
+
+        if (list_vehicles.isEmpty()) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "No vehicles found for this user.");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(list_vehicles, HttpStatus.OK);
     }
     
     

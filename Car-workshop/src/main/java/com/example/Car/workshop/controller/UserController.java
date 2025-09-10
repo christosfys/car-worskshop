@@ -1,9 +1,13 @@
 package com.example.Car.workshop.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,23 +28,41 @@ public class UserController {
 	private UserService userservice;
 	
 	@GetMapping("")
-	public List<User> getCustomer() {
+	public ResponseEntity<?> getCustomer() {
 		
-		return userservice.getAllUsers();
-		
+		List<User> list_users= userservice.getAllUsers();
+
+        if (list_users.isEmpty()) {
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "No users found.");
+            return new ResponseEntity<>(response, HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(list_users, HttpStatus.OK);
 		
 	}
+	
+	
+	
 	
 	@GetMapping("/{id}")
 	public Optional<User> getCustomerbyId(@PathVariable int id) {
 		
-		return userservice.getUserById(id);
+		Optional <User> isuser=userservice.getUserById(id);
+		
+		if(isuser.isEmpty()) {
+			throw new RuntimeException("The user doesn't exist");
+		}
+		
+		return isuser;
+		
 		
 		
 	}
 	
 	@PostMapping("")
 	public void createCustomer(@RequestBody User user) {
+		
+		
 		userservice.createUser(user);
 		
 		

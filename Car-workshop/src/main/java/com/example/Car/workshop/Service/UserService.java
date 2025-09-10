@@ -18,16 +18,23 @@ public class UserService {
 
     // Create a new user
     public User createUser(User user) {
-    	userrepo.findByName(user.getName())
-         .ifPresent(u -> {
-             throw new UserException(user.getName());
-         });
-
+    	Optional<User> user_exist=userrepo.findByNumber(user.getNumber());
+    	if(user_exist.isEmpty()) {
+    		userrepo.save(user);
+    	}else {
+    		throw new RuntimeException("The users phone is used by other user");
+    	}
+    	
+    			
+    			
     		return userrepo.save(user);
     }
 
     // Get all users
     public List<User> getAllUsers() {
+    	
+    	
+    	
         return userrepo.findAll();
     }
 
