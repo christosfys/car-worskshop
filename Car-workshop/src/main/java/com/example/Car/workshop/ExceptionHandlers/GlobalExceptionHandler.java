@@ -31,5 +31,14 @@ public class GlobalExceptionHandler {
 		error.put("message", ex.getMessage());
 		return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
 	}
+	@ExceptionHandler(VehicleNotFoundException.class)
+	public  ResponseEntity<Map<String,Object>> handleVehicleNotException(VehicleNotFoundException ex){
+		Map<String, Object> error = new HashMap<>();
+		error.put("timestamp", LocalDateTime.now());
+		error.put("status", 404);
+		error.put("error", "Vehicle Not Found");
+		error.put("message", ex.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
 
 }

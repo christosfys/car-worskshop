@@ -11,5 +11,10 @@ import com.example.Car.workshop.Entities.Vehicle;
 public interface VehicleRepository extends JpaRepository<Vehicle, Integer> {
 	@Query("SELECT v FROM Vehicle v WHERE v.user.id = :userId")
 	List<Vehicle> findByUserId(@Param("userId") int userId);
+	
+	
+
+	Vehicle findByPlateNumber(String plateNumber);
+	
 
 }

@@ -47,13 +47,23 @@ public class VehicleController {
 
 	// Create new vehicle
 	@PostMapping("/api/vehicles")
-	public void createVehicle(@RequestBody Vehicle vehicle) {
+	public ResponseEntity<?> createVehicle(@RequestBody @Valid Vehicle vehicle, BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			List<String> errors = bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).toList();
+			return ResponseEntity.badRequest().body(errors);
+		}
+
 		vehicleService.createVehicle(vehicle);
+
+		return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
+
 	}
 
 	// Delete vehicle by ID
 	@DeleteMapping("/api/vehicles/{id}")
 	public void deleteVehicle(@PathVariable int id) {
+		
+		
 		vehicleService.deleteVehicle(id);
 	}
 
