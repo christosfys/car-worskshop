@@ -12,6 +12,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class User {
@@ -19,49 +20,56 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 
 	private int id;
+
+	@NotBlank(message = "The name is required")
 	private String name;
-	@Column (name="phone")
+	@Column(name = "phone")
 	private String number;
-	@OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonManagedReference
-	 private List<Vehicle> vehicles = new ArrayList<>();		
-	
+	private List<Vehicle> vehicles = new ArrayList<>();
+
 	public User() {
 		super();
 	}
+
 	public User(String name, String number) {
 		super();
 		this.name = name;
 		this.number = number;
-	
+
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getNumber() {
 		return number;
 	}
+
 	public void setNumber(String number) {
 		this.number = number;
 	}
+
 	public List<Vehicle> getVehicles() {
 		return vehicles;
 	}
+
 	public void setVehicles(List<Vehicle> vehicles) {
 		this.vehicles = vehicles;
 	}
-	
-	
-
-	
 
 }

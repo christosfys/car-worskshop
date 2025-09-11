@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.Car.workshop.Entities.Appoitment;
 
-public interface AppoitmentRepository extends JpaRepository<Appoitment,Integer> {
-	
-	
+public interface AppoitmentRepository extends JpaRepository<Appoitment, Integer> {
+
 	public List<Appoitment> findBydateBetween(Date date, Date date1);
-	//public List<Appoitment> findByVehicleId(int id );
+
+	// public List<Appoitment> findByVehicleId(int id );
 	public List<Appoitment> findByVehicleId(int id);
 }

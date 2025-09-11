@@ -16,69 +16,63 @@ import java.util.Optional;
 @RequestMapping("/appointments")
 public class AppoitmentController {
 
-    @Autowired
-    private AppoitmentService appoitmentService;
-    @Autowired 
-    private VehicleController vehicleService;
+	@Autowired
+	private AppoitmentService appoitmentService;
+	@Autowired
+	private VehicleController vehicleService;
 
-    // CREATE
-    @PostMapping
-    public Appoitment create(@RequestBody Appoitment appoitment) {
-    	
-    	
-    	
-    	
-        return appoitmentService.create(appoitment);
-    }
+	// CREATE
+	@PostMapping
+	public Appoitment create(@RequestBody Appoitment appoitment) {
 
-    // READ (all)
-    @GetMapping
-    public List<Appoitment> getAll() {
-        return appoitmentService.findAll();
-    }
+		return appoitmentService.create(appoitment);
+	}
 
-    // READ (by id)
-    @GetMapping("/{id}")
-    public Optional<Appoitment> getById(@PathVariable int id) {
-        return appoitmentService.findById(id);
-    }
+	// READ (all)
+	@GetMapping
+	public List<Appoitment> getAll() {
+		return appoitmentService.findAll();
+	}
 
-    // DELETE
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable int id) {
-        appoitmentService.delete(id);
-    }
-    
-    
-    
-    @PostMapping("/vehicles/{id}")
-    public void createforVehicle(@PathVariable int id, @RequestBody Appoitment appoitment  ) {
-    	
-    	Optional<Vehicle> optionalUser = vehicleService.getVehicleById(id);
-    	System.out.println(optionalUser.toString());
-    	if (optionalUser.isPresent()) {
-    		appoitment.setVehicle(optionalUser.get());
-    		
-    		appoitmentService.create(appoitment);
-    	} else {
-    	 
-    	    System.out.println("User not found with id: " + id);
-    	
-    	}    	    }
-    
-    @GetMapping("/vehicles/{id}")
-      public List<Appoitment> getAppoitmentsByVehicle(@PathVariable int id) {
-		List<Appoitment> list_appoitments=appoitmentService.getByVehicleId(id);
+	// READ (by id)
+	@GetMapping("/{id}")
+	public Optional<Appoitment> getById(@PathVariable int id) {
+		return appoitmentService.findById(id);
+	}
+
+	// DELETE
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable int id) {
+		appoitmentService.delete(id);
+	}
+
+	@PostMapping("/vehicles/{id}")
+	public void createforVehicle(@PathVariable int id, @RequestBody Appoitment appoitment) {
+
+		Optional<Vehicle> optionalUser = vehicleService.getVehicleById(id);
+		System.out.println(optionalUser.toString());
+		if (optionalUser.isPresent()) {
+			appoitment.setVehicle(optionalUser.get());
+
+			appoitmentService.create(appoitment);
+		} else {
+
+			System.out.println("User not found with id: " + id);
+
+		}
+	}
+
+	@GetMapping("/vehicles/{id}")
+	public List<Appoitment> getAppoitmentsByVehicle(@PathVariable int id) {
+		List<Appoitment> list_appoitments = appoitmentService.getByVehicleId(id);
 		return list_appoitments;
-    	
-    }
-    
-    @GetMapping("/date/{date}and{date1}")
-    public List<Appoitment> getAppoitmentsByDate(
-            @PathVariable String date,
-            @PathVariable String date1) {
-    	 Date start = Date.valueOf(date); 
-    	    Date end = Date.valueOf(date1);
-        return appoitmentService.getBydate(start, end);
-    }
+
+	}
+
+	@GetMapping("/date/{date}and{date1}")
+	public List<Appoitment> getAppoitmentsByDate(@PathVariable String date, @PathVariable String date1) {
+		Date start = Date.valueOf(date);
+		Date end = Date.valueOf(date1);
+		return appoitmentService.getBydate(start, end);
+	}
 }

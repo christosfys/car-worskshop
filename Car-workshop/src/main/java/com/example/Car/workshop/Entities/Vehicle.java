@@ -18,59 +18,82 @@ import jakarta.validation.constraints.Pattern;
 @Table(name = "Vehicle")
 public class Vehicle {
 	@Valid
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-	
-	@Max(value = 2025, message = "Year cannot be in the future") 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+
+	@Max(value = 2025, message = "Year cannot be in the future")
 	private int year;
-	
-    @Column(name = "plate_number", nullable = false)
-    @JsonProperty("plate_number") // allows JSON to use "plate_number"
 
-    @Pattern(regexp = "^[A-Z]{3}-[0-9]{4}$",
-    message = "The template must have the specific number for example AAA-1111")
+	@Column(name = "plate_number", nullable = false)
+	@JsonProperty("plate_number") // allows JSON to use "plate_number"
 
-    @NotNull(message="The licencse plate is required")
-    private String plateNumber;
+	@Pattern(regexp = "^[A-Z]{3}-[0-9]{4}$", message = "The template must have the specific number for example AAA-1111")
 
-    private String model;
+	@NotNull(message = "The licencse plate is required")
+	private String plateNumber;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    @JsonBackReference
-    private User user;
-    
-    @OneToMany(mappedBy = "vehicle",cascade = CascadeType.ALL)
+	private String model;
+
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@JsonBackReference
+	private User user;
+
+	@OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	@JsonManagedReference
-    private List<Appoitment> appoitments=new ArrayList<>();
-    
-    
+	private List<Appoitment> appoitments = new ArrayList<>();
 
-    // Constructors
-    public Vehicle() {}
+	// Constructors
+	public Vehicle() {
+	}
 
-    public Vehicle(int year, String plateNumber, String model) {
-        this.year = year;
-        this.plateNumber = plateNumber;
-        this.model = model;
-    }
+	public Vehicle(int year, String plateNumber, String model) {
+		this.year = year;
+		this.plateNumber = plateNumber;
+		this.model = model;
+	}
 
-    // Getters & Setters
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+	// Getters & Setters
+	public int getId() {
+		return id;
+	}
 
-    public int getYear() { return year; }
-    public void setYear(int year) { this.year = year; }
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public String getPlateNumber() { return plateNumber; }
-    public void setPlateNumber(String plateNumber) { this.plateNumber = plateNumber; }
+	public int getYear() {
+		return year;
+	}
 
-    public String getModel() { return model; }
-    public void setModel(String model) { this.model = model; }
+	public void setYear(int year) {
+		this.year = year;
+	}
 
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
+	public String getPlateNumber() {
+		return plateNumber;
+	}
+
+	public void setPlateNumber(String plateNumber) {
+		this.plateNumber = plateNumber;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public List<Appoitment> getAppoitments() {
 		return appoitments;
