@@ -21,8 +21,12 @@ public class AppoitmentService {
 	// CREATE
 	public Appoitment create(Appoitment appoitment) {
 		Appoitment app=repository.findByDateAndVehicleId(appoitment.getDate(), appoitment.getVehicle().getId());
-		System.out.println(app.toString());
 		
+		if(app!=null) {
+			System.out.println(app.toString());
+		
+			throw new RuntimeException("kane kati");
+		}
 		
 
 		return repository.save(appoitment);
