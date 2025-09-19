@@ -22,8 +22,8 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
 
-	@ExceptionHandler(NumberExistException.class)
-	public ResponseEntity<Map<String, Object>> handleNumberException(NumberExistException ex) {
+	@ExceptionHandler(DoubleWriteException.class)
+	public ResponseEntity<Map<String, Object>> handleNumberException(DoubleWriteException ex) {
 		Map<String, Object> error = new HashMap<>();
 		error.put("timestamp", LocalDateTime.now());
 		error.put("status", 403);

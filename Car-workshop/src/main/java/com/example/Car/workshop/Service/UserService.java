@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.Car.workshop.Dao.UserRepository;
 import com.example.Car.workshop.Entities.User;
+import com.example.Car.workshop.ExceptionHandlers.DoubleWriteException;
 import com.example.Car.workshop.ExceptionHandlers.NumberExistException;
 import com.example.Car.workshop.ExceptionHandlers.UserException;
 
@@ -19,25 +20,29 @@ public class UserService {
 
 	// Create a new user
 	public User createUser(User user) {
-		Optional<User> user_exist = userrepo.findByNumber(user.getNumber());
+		Optional<User> user_exist = userrepo.findByNameAndNumber(user.getName(),user.getNumber());
+		
+		
 		if (user_exist.isEmpty()) {
 			userrepo.save(user);
 			return userrepo.save(user);
 		} else {
-			throw new NumberExistException("The users phone is used by other user");
+			throw new DoubleWriteException("The users phone is used by other user");
 		}
 
 	}
 
-	// Get all users
+
 	public List<User> getAllUsers() {
 
 		return userrepo.findAll();
 	}
 
-	// Get user by ID
-	public Optional<User> getUserById(int id) {
-		return userrepo.findById(id);
+
+	public User getUserById(int id) {
+		return userrepo.findById(id)
+		        .orElseThrow(() -> new UserException("User with ID " + id + " does not exist"));
+
 	}
 
 	// Update user
@@ -63,6 +68,6 @@ public class UserService {
 			userrepo.deleteById(id);
 			return true;
 		}
-		// return false;
+	
 	}
 }

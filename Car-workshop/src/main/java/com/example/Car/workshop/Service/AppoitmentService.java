@@ -20,6 +20,10 @@ public class AppoitmentService {
 
 	// CREATE
 	public Appoitment create(Appoitment appoitment) {
+		Appoitment app=repository.findByDateAndVehicleId(appoitment.getDate(), appoitment.getVehicle().getId());
+		System.out.println(app.toString());
+		
+		
 
 		return repository.save(appoitment);
 	}
@@ -30,8 +34,8 @@ public class AppoitmentService {
 	}
 
 	// READ (by id)
-	public Optional<Appoitment> findById(int id) {
-		return repository.findById(id);
+	public Appoitment findById(int id) {
+		return repository.findById(id).orElseThrow(()->new RuntimeException());
 	}
 
 	// DELETE

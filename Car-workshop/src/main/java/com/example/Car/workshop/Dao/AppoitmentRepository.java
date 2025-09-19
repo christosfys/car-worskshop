@@ -4,13 +4,20 @@ import java.sql.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import com.example.Car.workshop.Entities.Appoitment;
 
 public interface AppoitmentRepository extends JpaRepository<Appoitment, Integer> {
 
 	public List<Appoitment> findBydateBetween(Date date, Date date1);
-
+	@Query("SELECT COUNT(a) FROM Appoitment a WHERE a.date = :date")
+	int getAppointmentPerDate(@Param("date") Date date);
 	// public List<Appoitment> findByVehicleId(int id );
 	public List<Appoitment> findByVehicleId(int id);
+	
+	 Appoitment findByDateAndVehicleId(Date date, int vehicleId);
+	
+	
 }

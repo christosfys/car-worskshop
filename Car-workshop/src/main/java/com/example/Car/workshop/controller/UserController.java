@@ -47,15 +47,10 @@ public class UserController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<User> getCustomerbyId(@PathVariable int id) {
+	public User getCustomerbyId(@PathVariable int id) {
 
-		Optional<User> isuser = userservice.getUserById(id);
-
-		if (isuser.isEmpty()) {
-			throw new UserException("The user doesn't exist");
-		}
-
-		return isuser;
+	
+		return  userservice.getUserById(id);
 
 	}
 

@@ -45,11 +45,15 @@ public class VehicleController {
 		return vehicleService.getVehicleById(id);
 	}
 
-	// Create new vehicle
+
 	@PostMapping("/api/vehicles")
 	public ResponseEntity<?> createVehicle(@RequestBody @Valid Vehicle vehicle, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
-			List<String> errors = bindingResult.getAllErrors().stream().map(ObjectError::getDefaultMessage).toList();
+			List<String> errors = bindingResult
+					.getAllErrors()
+					.stream()
+					.map(ObjectError::getDefaultMessage)
+					.toList();
 			return ResponseEntity.badRequest().body(errors);
 		}
 
@@ -78,12 +82,12 @@ public class VehicleController {
 		}
 
 		// 2️⃣ Check if user exists
-		Optional<User> optionalUser = userService.getUserById(id);
-		if (optionalUser.isEmpty()) {
+		User optionalUser = userService.getUserById(id);
+		if (optionalUser==null) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found with id: " + id);
 		}
 
-		vehicle.setUser(optionalUser.get());
+		vehicle.setUser(optionalUser);
 		vehicleService.createVehicle(vehicle);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);

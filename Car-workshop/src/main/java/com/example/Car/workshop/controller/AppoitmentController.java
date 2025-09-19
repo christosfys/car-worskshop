@@ -36,7 +36,7 @@ public class AppoitmentController {
 
 	// READ (by id)
 	@GetMapping("/{id}")
-	public Optional<Appoitment> getById(@PathVariable int id) {
+	public Appoitment getById(@PathVariable int id) {
 		return appoitmentService.findById(id);
 	}
 

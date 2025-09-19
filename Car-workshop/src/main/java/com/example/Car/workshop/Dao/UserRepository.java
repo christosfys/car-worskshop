@@ -9,8 +9,11 @@ import com.example.Car.workshop.Entities.User;
 public interface UserRepository extends JpaRepository<User, Integer> {
 	// Optional: custom queries
 
-	Optional<User> findByName(String name);
+	//Optional<User> findByName(String name);
 
 	Optional<User> findByNumber(String name);
-
+	
+	
+	Optional<User> findByNameAndNumber(String name,String n);
+	
 }
