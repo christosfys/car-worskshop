@@ -18,6 +18,11 @@ public interface AppoitmentRepository extends JpaRepository<Appoitment, Integer>
 	public List<Appoitment> findByVehicleId(int id);
 	
 	 Appoitment findByDateAndVehicleId(Date date, int vehicleId);
-	
+	 
+	 @Query("SELECT a FROM Appointment a " +
+	           "JOIN a.vehicle v " +
+	           "JOIN v.user u " +
+	           "WHERE u.id = :userId")
+	  List<Appoitment> findAppoitmentsByUserId(@Param("userId") int userId);
 	
 }

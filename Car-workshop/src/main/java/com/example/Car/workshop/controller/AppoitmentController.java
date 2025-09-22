@@ -4,6 +4,8 @@ import com.example.Car.workshop.Entities.Appoitment;
 import com.example.Car.workshop.Entities.User;
 import com.example.Car.workshop.Entities.Vehicle;
 import com.example.Car.workshop.Service.AppoitmentService;
+import com.example.Car.workshop.Service.VehicleService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +21,13 @@ public class AppoitmentController {
 	@Autowired
 	private AppoitmentService appoitmentService;
 	@Autowired
-	private VehicleController vehicleService;
-
+	private VehicleService vehicleService;
+	@GetMapping("/user/{id}")
+	public List<Appoitment> getAppoitmentByUser(@PathVariable int id){
+		System.out.println("kane kati");
+		return appoitmentService.getbyUserId(id);
+		
+	}
 	// CREATE
 	@PostMapping
 	public Appoitment create(@RequestBody Appoitment appoitment) {
@@ -75,4 +82,8 @@ public class AppoitmentController {
 		Date end = Date.valueOf(date1);
 		return appoitmentService.getBydate(start, end);
 	}
+
+
+	
+
 }
