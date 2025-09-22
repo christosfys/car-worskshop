@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Car.workshop.Entities.Appoitment;
 import com.example.Car.workshop.Entities.User;
 import com.example.Car.workshop.ExceptionHandlers.UserException;
 import com.example.Car.workshop.Service.UserService;
@@ -26,12 +27,13 @@ import com.example.Car.workshop.Service.UserService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	private UserService userservice;
 
+	
 	@GetMapping("")
 	public ResponseEntity<?> getCustomer() {
 
@@ -85,6 +87,12 @@ public class UserController {
 	@PutMapping("/{id}")
 	public void updateUser(@PathVariable int id, @RequestBody User user) {
 		userservice.updateUser(id, user);
+	}
+	
+	@GetMapping("/{id}/appoitment")
+	public List<Appoitment> getappoitmentsperUser(@PathVariable int id){
+		return null;
+		
 	}
 
 	

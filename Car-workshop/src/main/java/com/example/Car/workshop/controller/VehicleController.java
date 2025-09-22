@@ -34,19 +34,19 @@ public class VehicleController {
 	}
 
 	// Get all vehicles
-	@GetMapping("/api/vehicles")
+	@GetMapping("/vehicles")
 	public List<Vehicle> getVehicles() {
 		return vehicleService.getAllVehicles();
 	}
 
 	// Get vehicle by ID
-	@GetMapping("/api/vehicles/{id}")
+	@GetMapping("/vehicles/{id}")
 	public Optional<Vehicle> getVehicleById(@PathVariable int id) {
 		return vehicleService.getVehicleById(id);
 	}
 
 
-	@PostMapping("/api/vehicles")
+	@PostMapping("/vehicles")
 	public ResponseEntity<?> createVehicle(@RequestBody @Valid Vehicle vehicle, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			List<String> errors = bindingResult
@@ -64,14 +64,14 @@ public class VehicleController {
 	}
 
 	// Delete vehicle by ID
-	@DeleteMapping("/api/vehicles/{id}")
+	@DeleteMapping("/vehicles/{id}")
 	public void deleteVehicle(@PathVariable int id) {
 		
 		
 		vehicleService.deleteVehicle(id);
 	}
 
-	@PostMapping("/api/customers/{id}/vehicles")
+	@PostMapping("/users/{id}/vehicles")
 	public ResponseEntity<?> addVehicleByUser(@PathVariable int id, @RequestBody @Valid Vehicle vehicle,
 			BindingResult bindingResult) {
 
@@ -93,7 +93,7 @@ public class VehicleController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(vehicle);
 	}
 
-	@GetMapping("/api/customers/{id}/vehicles")
+	@GetMapping("/users/{id}/vehicles")
 	public ResponseEntity<?> getVehiclesByUser(@PathVariable int id) {
 		List<Vehicle> list_vehicles = vehicleService.findVehicles(id);
 

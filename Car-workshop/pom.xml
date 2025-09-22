@@ -66,11 +66,7 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>com.luv2code.springboot</groupId>
-			<artifactId>cruddemo</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+	
 	</dependencies>
 
 	<build>

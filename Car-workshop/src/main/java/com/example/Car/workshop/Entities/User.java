@@ -3,6 +3,7 @@ package com.example.Car.workshop.Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -27,6 +28,8 @@ public class User {
 	private String number;
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	@JsonManagedReference
+	@JsonIgnoreProperties("appoitments")
+
 	private List<Vehicle> vehicles = new ArrayList<>();
 
 	public User() {

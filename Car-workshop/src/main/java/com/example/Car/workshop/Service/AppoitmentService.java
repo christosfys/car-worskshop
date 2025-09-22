@@ -15,8 +15,7 @@ import com.example.Car.workshop.Entities.User;
 public class AppoitmentService {
 	@Autowired
 	private  AppoitmentRepository repository;
-	@Autowired
-	private  VehicleService vehicleservice;
+
 	@Autowired
 	private  UserService userservice;
 	
@@ -31,9 +30,10 @@ public class AppoitmentService {
 			
 		}
 		if(app!=null) {
-			System.out.println(app.toString());
+			//System.out.println(app.toString());
 		
-			throw new RuntimeException("kane kati");
+		//	throw new RuntimeException("kane kati");
+			System.out.println(app.getDescription());
 		}
 		
 

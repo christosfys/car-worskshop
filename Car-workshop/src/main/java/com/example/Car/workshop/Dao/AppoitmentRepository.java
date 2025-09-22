@@ -19,7 +19,7 @@ public interface AppoitmentRepository extends JpaRepository<Appoitment, Integer>
 	
 	 Appoitment findByDateAndVehicleId(Date date, int vehicleId);
 	 
-	 @Query("SELECT a FROM Appointment a " +
+	 @Query("SELECT a FROM Appoitment a " +
 	           "JOIN a.vehicle v " +
 	           "JOIN v.user u " +
 	           "WHERE u.id = :userId")

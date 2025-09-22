@@ -3,6 +3,8 @@ package com.example.Car.workshop.Entities;
 import java.sql.Date;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,6 +28,7 @@ public class Appoitment {
 
 	@ManyToOne
 	@JoinColumn(name = "vehicle_id")
+	
 	@JsonBackReference
 	private Vehicle vehicle;
 
@@ -33,11 +36,12 @@ public class Appoitment {
 		super();
 	}
 
-	public Appoitment(Date date, String description, int cost) {
+	public Appoitment(Date date, String description, int cost,Vehicle vehicle) {
 		super();
 		this.date = date;
 		this.description = description;
 		this.cost = cost;
+		this.vehicle=vehicle;
 	}
 
 	public int getId() {
