@@ -5,8 +5,7 @@ import com.example.Car.workshop.Entities.User;
 import com.example.Car.workshop.Entities.Vehicle;
 import com.example.Car.workshop.Service.AppoitmentService;
 import com.example.Car.workshop.Service.VehicleService;
-
-
+import com.example.Car.workshop.dto.AppoitmentDto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -92,7 +91,23 @@ public class AppoitmentController {
 		return appoitmentService.getbyUserId(id);
 		
 	}
-
 	
+	
+	@GetMapping("/appdto")
+	public List<AppoitmentDto> getAppdDto() {
+	    List<Appoitment> find = appoitmentService.findAll();
+
+	    List<AppoitmentDto> dtos = find.stream().map(app -> {
+	        AppoitmentDto dto = new AppoitmentDto();
+	        dto.setId(app.getId());
+	        dto.setDescription(app.getDescription());
+	        dto.setDate(app.getDate());
+	        dto.setPlateNumber(app.getVehicle().getPlateNumber());
+	        
+	        return dto; // <-- important
+	    }).toList(); // <-- close the stream and collect to list
+
+	    return dtos;
+	}
 
 }
