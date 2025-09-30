@@ -17,11 +17,10 @@ public class VehicleService {
 	@Autowired
 	private VehicleRepository vehiclerepo;
 
-	
 	public Vehicle createVehicle(Vehicle vehicle) {
-		
-		//Vehicle newvehicle=vehiclerepo.findByPlateNumber(vehicle.getPlateNumber());
-		//System.out.println(newvehicle.getId());
+
+		// Vehicle newvehicle=vehiclerepo.findByPlateNumber(vehicle.getPlateNumber());
+		// System.out.println(newvehicle.getId());
 		return vehiclerepo.save(vehicle);
 	}
 

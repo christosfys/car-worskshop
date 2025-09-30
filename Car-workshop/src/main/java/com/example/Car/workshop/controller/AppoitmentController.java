@@ -28,7 +28,6 @@ public class AppoitmentController {
 	@PostMapping
 	public Appoitment create(@RequestBody Appoitment appoitment) {
 		System.out.println(appoitment);
-		
 
 		return appoitmentService.create(appoitment);
 	}
@@ -50,10 +49,10 @@ public class AppoitmentController {
 	public void delete(@PathVariable int id) {
 		appoitmentService.delete(id);
 	}
-	
+
 	@PutMapping("/{id}")
-	public void update(@PathVariable int id,@RequestBody Appoitment appoitment) {
-		
+	public void update(@PathVariable int id, @RequestBody Appoitment appoitment) {
+
 	}
 
 	@PostMapping("/vehicles/{id}")
@@ -85,29 +84,35 @@ public class AppoitmentController {
 		Date end = Date.valueOf(date1);
 		return appoitmentService.getBydate(start, end);
 	}
+
 	@GetMapping("/user/{id}")
-	public List<Appoitment> getAppoitmentByUser(@PathVariable int id){
+	public List<Appoitment> getAppoitmentByUser(@PathVariable int id) {
 		System.out.println("kane kati");
 		return appoitmentService.getbyUserId(id);
-		
+
 	}
-	
-	
+
 	@GetMapping("/appdto")
 	public List<AppoitmentDto> getAppdDto() {
-	    List<Appoitment> find = appoitmentService.findAll();
+		List<Appoitment> find = appoitmentService.findAll();
 
-	    List<AppoitmentDto> dtos = find.stream().map(app -> {
-	        AppoitmentDto dto = new AppoitmentDto();
-	        dto.setId(app.getId());
-	        dto.setDescription(app.getDescription());
-	        dto.setDate(app.getDate());
-	        dto.setPlateNumber(app.getVehicle().getPlateNumber());
-	        
-	        return dto; // <-- important
-	    }).toList(); // <-- close the stream and collect to list
+		List<AppoitmentDto> dtos = find.stream().map(app -> {
+			AppoitmentDto dto = new AppoitmentDto();
+			dto.setId(app.getId());
+			dto.setDescription(app.getDescription());
+			dto.setDate(app.getDate());
+			dto.setPlateNumber(app.getVehicle().getPlateNumber());
 
-	    return dtos;
+			return dto; // <-- important
+		}).toList(); // <-- close the stream and collect to list
+
+		return dtos;
 	}
 
+	@GetMapping("/date")
+	public List<Appoitment> getAppBydate() {
+		List<Appoitment> find = appoitmentService.getBydate();
+
+		return find;
+	}
 }

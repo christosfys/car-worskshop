@@ -14,28 +14,26 @@ import com.example.Car.workshop.Entities.User;
 @Service
 public class AppoitmentService {
 	@Autowired
-	private  AppoitmentRepository repository;
+	private AppoitmentRepository repository;
 
 	@Autowired
-	private  UserService userservice;
-	
+	private UserService userservice;
 
 	// CREATE
 	public Appoitment create(Appoitment appoitment) {
-		Appoitment app=repository.findByDateAndVehicleId(appoitment.getDate(), appoitment.getVehicle().getId());
-		// to do  max=5 int total=repository.getAppointmentPerDate(appoitment.getDate());
-		
-		if(repository.getAppointmentPerDate(appoitment.getDate())==5){
+		Appoitment app = repository.findByDateAndVehicleId(appoitment.getDate(), appoitment.getVehicle().getId());
+		// to do max=5 int total=repository.getAppointmentPerDate(appoitment.getDate());
+
+		if (repository.getAppointmentPerDate(appoitment.getDate()) == 5) {
 			throw new RuntimeException("Max capacity");
-			
+
 		}
-		if(app!=null) {
-			//System.out.println(app.toString());
-		
-		//	throw new RuntimeException("kane kati");
+		if (app != null) {
+			// System.out.println(app.toString());
+
+			// throw new RuntimeException("kane kati");
 			System.out.println(app.getDescription());
 		}
-		
 
 		return repository.save(appoitment);
 	}
@@ -47,7 +45,7 @@ public class AppoitmentService {
 
 	// READ (by id)
 	public Appoitment findById(int id) {
-		return repository.findById(id).orElseThrow(()->new RuntimeException());
+		return repository.findById(id).orElseThrow(() -> new RuntimeException());
 	}
 
 	// DELETE
@@ -65,8 +63,13 @@ public class AppoitmentService {
 
 	public List<Appoitment> getbyUserId(int id) {
 		// TODO Auto-generated method stub
-		User currentuser=userservice.getUserById(id);
-		
+		User currentuser = userservice.getUserById(id);
+
 		return repository.findAppoitmentsByUserId(id);
+	}
+
+	public List<Appoitment> getBydate() {
+		return repository.findAllByOrderByDate();
+
 	}
 }

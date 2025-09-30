@@ -20,9 +20,8 @@ public class UserService {
 
 	// Create a new user
 	public User createUser(User user) {
-		Optional<User> user_exist = userrepo.findByNameAndNumber(user.getName(),user.getNumber());
-		
-		
+		Optional<User> user_exist = userrepo.findByNameAndNumber(user.getName(), user.getNumber());
+
 		if (user_exist.isEmpty()) {
 			userrepo.save(user);
 			return userrepo.save(user);
@@ -32,16 +31,13 @@ public class UserService {
 
 	}
 
-
 	public List<User> getAllUsers() {
 
 		return userrepo.findAll();
 	}
 
-
 	public User getUserById(int id) {
-		return userrepo.findById(id)
-		        .orElseThrow(() -> new UserException("User with ID " + id + " does not exist"));
+		return userrepo.findById(id).orElseThrow(() -> new UserException("User with ID " + id + " does not exist"));
 
 	}
 
@@ -68,6 +64,7 @@ public class UserService {
 			userrepo.deleteById(id);
 			return true;
 		}
-	
+
 	}
+
 }
