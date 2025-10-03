@@ -40,5 +40,15 @@ public class GlobalExceptionHandler {
 		error.put("message", ex.getMessage());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(WeekendException.class)
+	public  ResponseEntity<Map<String,Object>> handleWeekendException(WeekendException ex){
+		Map<String, Object> error = new HashMap<>();
+		error.put("timestamp", LocalDateTime.now());
+		error.put("status", 404);
+		error.put("error", "the Date is Saturday and Sunday");
+		error.put("message", ex.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+	}
 
 }
