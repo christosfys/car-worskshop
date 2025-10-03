@@ -1,6 +1,7 @@
 package com.example.Car.workshop.Service;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,9 +22,26 @@ public class AppoitmentService {
 
 	// CREATE
 	public Appoitment create(Appoitment appoitment) {
+		
+		
 		Appoitment app = repository.findByDateAndVehicleId(appoitment.getDate(), appoitment.getVehicle().getId());
 		// to do max=5 int total=repository.getAppointmentPerDate(appoitment.getDate());
+			
+		Date d1=appoitment.getDate();
+		
+		
 
+	    Calendar c1 = Calendar.getInstance();
+	    c1.setTime(d1);
+	    System.out.println(c1.get(Calendar.DAY_OF_WEEK));
+
+	    if ((c1.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY) 
+	            || (Calendar.DAY_OF_WEEK == Calendar.SUNDAY)) {  //or sunday   
+	    System.out.println("WEEKEND not allowed;");
+	    }else {
+	    System.out.println("WEEKDAY");
+	    }
+		
 		if (repository.getAppointmentPerDate(appoitment.getDate()) == 5) {
 			throw new RuntimeException("Max capacity");
 
@@ -34,6 +52,7 @@ public class AppoitmentService {
 			// throw new RuntimeException("kane kati");
 			System.out.println(app.getDescription());
 		}
+		
 
 		return repository.save(appoitment);
 	}
